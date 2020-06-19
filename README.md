@@ -15,17 +15,10 @@ default settings for HLS live streaming. Built on Alpine Linux.
 ## Usage
 
 ### Server
-* Pull docker image and run:
-```
-docker pull alfg/nginx-rtmp
-docker run -it -p 1935:1935 -p 8080:80 --rm alfg/nginx-rtmp
-```
-or 
-
 * Build and run container from source:
 ```
-docker build -t nginx-rtmp .
-docker run -it -p 1935:1935 -p 8080:80 --rm nginx-rtmp
+docker build --tag streamserver .
+docker run -it --network host --rm streamserver
 ```
 
 * Stream live content to:
@@ -64,9 +57,9 @@ volumes:
 ### Watch Stream
 * In Safari, VLC or any HLS player, open:
 ```
-http://<server ip>:8080/live/$STREAM_NAME.m3u8
+http://<server ip>:8008/live/$STREAM_NAME.m3u8
 ```
-* Example Playlist: `http://localhost:8080/live/hello.m3u8`
+* Example Playlist: `http://localhost:8008/live/hello.m3u8`
 * [VideoJS Player](https://video-dev.github.io/hls.js/stable/demo/?src=http%3A%2F%2Flocalhost%3A8080%2Flive%2Fhello.m3u8)
 * FFplay: `ffplay -fflags nobuffer rtmp://localhost:1935/stream/hello`
 
